@@ -632,3 +632,75 @@ nav ul li a {
     .footer-contact { text-align: center; }
     .footer-bottom { text-align: center; }
 }
+
+/* Mobile Navigation & Menu Button */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    z-index: 2000;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #4a5d4e;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+    .menu-toggle { display: flex; }
+    
+    .navbar .container { padding: 0 20px; }
+    
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: #fff;
+        padding-top: 80px;
+        transition: 0.4s ease;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    }
+
+    nav.active { right: 0; }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 20px 0;
+        margin-left: 0;
+    }
+
+    nav ul li a { font-size: 18px; }
+
+    /* Content Spacing for Mobile */
+    section { padding: 60px 20px !important; }
+    .main-slogan { font-size: 1.6rem !important; line-height: 1.4; word-break: keep-all; }
+    .sub-slogan { font-size: 0.95rem !important; margin-bottom: 20px; }
+    .hero { padding: 0 20px; }
+    
+    /* Center Fixes */
+    .director-flex, .info-flex, .treat-flex {
+        gap: 30px;
+    }
+    
+    .quote { font-size: 1.1rem; padding-left: 15px; }
+    .last-msg { font-size: 1.5rem !important; }
+}
+
+/* Hamburger Animation */
+.menu-toggle.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.menu-toggle.active span:nth-child(2) { opacity: 0; }
+.menu-toggle.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
