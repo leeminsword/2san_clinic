@@ -633,71 +633,53 @@ nav ul li a {
     .footer-bottom { text-align: center; }
 }
 
-/* Mobile Navigation & Menu Button */
-.menu-toggle {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 21px;
-    cursor: pointer;
-    z-index: 2000;
-}
-
-.menu-toggle span {
-    display: block;
-    height: 3px;
-    width: 100%;
-    background-color: #4a5d4e;
-    border-radius: 3px;
-    transition: all 0.3s ease;
-}
-
-/* Mobile Responsive Adjustments */
+/* Mobile Navigation Setup */
 @media (max-width: 768px) {
-    .menu-toggle { display: flex; }
+    /* 메뉴 버튼을 글자/사진보다 무조건 위에 배치 */
+    .menu-toggle { 
+        display: flex; 
+        z-index: 9999; 
+    }
     
-    .navbar .container { padding: 0 20px; }
-    
+    /* 메뉴 판 설정 */
     nav {
         position: fixed;
         top: 0;
-        right: -100%;
-        width: 70%;
+        right: -100%; /* 처음엔 화면 오른쪽에 완전히 숨김 */
+        width: 70%; /* 화면의 70% 너비 차지 */
         height: 100vh;
-        background: #fff;
-        padding-top: 80px;
-        transition: 0.4s ease;
-        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        background: #ffffff;
+        z-index: 9998; /* 버튼보다는 아래, 본문보다는 위 */
+        padding-top: 100px; /* 로고와 겹치지 않게 상단 여백 */
+        transition: 0.4s ease-in-out;
+        box-shadow: -10px 0 20px rgba(0,0,0,0.1);
+        display: block !important; /* display: none이 있다면 무시하고 보여줌 */
     }
 
-    nav.active { right: 0; }
+    /* 버튼 클릭 시 메뉴가 들어오는 클래스 */
+    nav.active { 
+        right: 0; 
+    }
 
     nav ul {
         flex-direction: column;
         align-items: center;
+        width: 100%;
     }
 
     nav ul li {
-        margin: 20px 0;
+        margin: 25px 0;
         margin-left: 0;
+        width: 100%;
+        text-align: center;
     }
 
-    nav ul li a { font-size: 18px; }
-
-    /* Content Spacing for Mobile */
-    section { padding: 60px 20px !important; }
-    .main-slogan { font-size: 1.6rem !important; line-height: 1.4; word-break: keep-all; }
-    .sub-slogan { font-size: 0.95rem !important; margin-bottom: 20px; }
-    .hero { padding: 0 20px; }
-    
-    /* Center Fixes */
-    .director-flex, .info-flex, .treat-flex {
-        gap: 30px;
+    nav ul li a { 
+        font-size: 20px; 
+        color: #4a5d4e; 
+        display: block;
+        width: 100%;
     }
-    
-    .quote { font-size: 1.1rem; padding-left: 15px; }
-    .last-msg { font-size: 1.5rem !important; }
 }
 
 /* Hamburger Animation */
