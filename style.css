@@ -633,52 +633,57 @@ nav ul li a {
     .footer-bottom { text-align: center; }
 }
 
-/* Mobile Navigation Setup */
+/* Mobile Navigation & Menu Button */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    z-index: 2000;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #4a5d4e;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* Mobile Responsive Adjustments */
 @media (max-width: 768px) {
-    /* 메뉴 버튼을 글자/사진보다 무조건 위에 배치 */
-    .menu-toggle { 
-        display: flex; 
-        z-index: 9999; 
-    }
-    
-    /* 메뉴 판 설정 */
+    /* 내비게이션 기본 상태 (오른쪽 밖으로 밀어내기) */
     nav {
         position: fixed;
         top: 0;
-        right: -100%; /* 처음엔 화면 오른쪽에 완전히 숨김 */
-        width: 70%; /* 화면의 70% 너비 차지 */
+        right: -100%; 
+        width: 70%;
         height: 100vh;
-        background: #ffffff;
-        z-index: 9998; /* 버튼보다는 아래, 본문보다는 위 */
-        padding-top: 100px; /* 로고와 겹치지 않게 상단 여백 */
+        background: #fff;
+        z-index: 9998;
+        padding-top: 80px;
         transition: 0.4s ease-in-out;
-        box-shadow: -10px 0 20px rgba(0,0,0,0.1);
-        display: block !important; /* display: none이 있다면 무시하고 보여줌 */
+        display: block !important; /* 혹시 모를 display:none 방지 */
+        visibility: visible; /* 숨김 처리 방지 */
     }
 
-    /* 버튼 클릭 시 메뉴가 들어오는 클래스 */
-    nav.active { 
-        right: 0; 
+    /* active 클래스가 붙었을 때 (화면 안으로 들어오기) */
+    nav.active {
+        right: 0 !important;
     }
-
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
+    
+    /* 본문 여백 강제 조정 (옆으로 치우침 방지) */
+    .container {
+        padding: 0 20px !important;
+        width: 100% !important;
+        box-sizing: border-box;
     }
-
-    nav ul li {
-        margin: 25px 0;
-        margin-left: 0;
-        width: 100%;
-        text-align: center;
-    }
-
-    nav ul li a { 
-        font-size: 20px; 
-        color: #4a5d4e; 
-        display: block;
-        width: 100%;
+    
+    body {
+        overflow-x: hidden; /* 가로 스크롤 방지 */
     }
 }
 
@@ -686,3 +691,51 @@ nav ul li a {
 .menu-toggle.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
 .menu-toggle.active span:nth-child(2) { opacity: 0; }
 .menu-toggle.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+/* --- 모바일 메뉴 최종 수정 (기존의 display:none 방지) --- */
+@media (max-width: 768px) {
+    /* 햄버거 버튼이 모바일에서 보이게 설정 */
+    .menu-toggle { 
+        display: flex !important; 
+    }
+
+    /* 내비게이션 기본 설정 보강 */
+    nav {
+        display: block !important; /* display: none 설정을 무시 */
+        position: fixed !important;
+        top: 0;
+        right: -100% !important; /* 평소엔 숨김 */
+        width: 75%;
+        height: 100vh;
+        background: #ffffff;
+        z-index: 9998;
+        padding-top: 100px;
+        transition: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    }
+
+    /* 클릭 시(active 클래스 추가 시) 화면 안으로 등장 */
+    nav.active {
+        right: 0 !important;
+    }
+
+    /* 메뉴 목록 스타일 정돈 */
+    nav ul {
+        flex-direction: column !important;
+        padding: 0;
+        margin: 0;
+    }
+
+    nav ul li {
+        margin: 20px 0 !important;
+        width: 100%;
+        text-align: center;
+    }
+
+    nav ul li a {
+        font-size: 1.2rem !important;
+        display: block;
+        padding: 10px 0;
+    }
+}
+

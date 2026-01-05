@@ -47,17 +47,17 @@
         </div>
     </section>
 
-    <section class="director-intro container">
-        <div class="director-flex">
-            <div class="director-photo scroll-fade">
-                <img src="images/main_director.jpg" alt="이성산 원장" class="photo-placeholder">
-            </div>
-            
-            <div class="director-text scroll-fade">
-                <p class="quote">
-                    “지혜로운 노인이 산을 옮기겠다고 삽을 든 이야기를 아시나요?<br>
-                    오늘 한 삽, 내일 한 삽. 작지만 꾸준한 변화가 결국 길을 냅니다.”
-                </p>
+<section class="director-intro container">
+    <div class="director-flex">
+        <div class="director-photo scroll-fade">
+            <img src="images/main_director.jpg" alt="이성산 원장" class="photo-placeholder">
+        </div>
+        
+        <div class="director-text mobile-order-2 scroll-fade">
+            <p class="quote">
+                “지혜로운 노인이 산을 옮기겠다고 삽을 든 이야기를 아시나요?<br>
+                오늘 한 삽, 내일 한 삽. 작지만 꾸준한 변화가 결국 길을 냅니다.”
+            </p>
                 
                 <div id="narrative-content" class="narrative">
                     <p><strong>“꾸준한 치료로 큰 난제를 옮깁니다”</strong></p>
@@ -145,26 +145,49 @@
         </div>
     </footer>
 
-    <script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        // 1. 모바일 메뉴 관련
+        const menuToggle = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            document.querySelectorAll('nav ul li a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+
+        // 2. 슬라이더 관련
         const track = document.querySelector('.slider-track');
         const slides = document.querySelectorAll('.slide');
         let index = 0;
 
-        function moveSlider() {
-            index++;
-            track.style.transition = "transform 1.2s ease-in-out";
-            track.style.transform = `translateX(-${index * 100}%)`;
+        if (track && slides.length > 0) {
+            function moveSlider() {
+                index++;
+                track.style.transition = "transform 1.2s ease-in-out";
+                track.style.transform = `translateX(-${index * 100}%)`;
 
-            if (index >= slides.length - 1) {
-                setTimeout(() => {
-                    track.style.transition = "none";
-                    index = 0;
-                    track.style.transform = `translateX(0)`;
-                }, 1200);
+                if (index >= slides.length - 1) {
+                    setTimeout(() => {
+                        track.style.transition = "none";
+                        index = 0;
+                        track.style.transform = `translateX(0)`;
+                    }, 1200);
+                }
             }
+            setInterval(moveSlider, 3000);
         }
-        setInterval(moveSlider, 3000);
 
+        // 3. 스크롤 애니메이션
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -174,34 +197,21 @@
         }, { threshold: 0.2 });
 
         document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el));
-
-        function toggleCareer() {
-            const narrative = document.getElementById('narrative-content');
-            const career = document.getElementById('career-content');
-            
-            if (career.style.display === 'none') {
-                narrative.style.display = 'none';
-                career.style.display = 'block';
-            } else {
-                narrative.style.display = 'block';
-                career.style.display = 'none';
-            }
-        }
-
-const menuToggle = document.getElementById('mobile-menu');
-const navMenu = document.getElementById('nav-menu');
-
-menuToggle.addEventListener('click', () => {
-    menuToggle.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
-
-document.querySelectorAll('nav ul li a').forEach(link => {
-    link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        navMenu.classList.remove('active');
     });
-});
-    </script>
+
+    // 4. 약력 토글 (DOMContentLoaded 밖으로 빼야 버튼 작동)
+    function toggleCareer() {
+        const narrative = document.getElementById('narrative-content');
+        const career = document.getElementById('career-content');
+        
+        if (career.style.display === 'none') {
+            narrative.style.display = 'none';
+            career.style.display = 'block';
+        } else {
+            narrative.style.display = 'block';
+            career.style.display = 'none';
+        }
+    }
+</script>
 </body>
 </html>
