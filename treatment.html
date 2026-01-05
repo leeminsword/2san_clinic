@@ -136,39 +136,29 @@
         </div>
     </footer>
 
-    <script>
-    // 모든 리소스가 로드된 후 실행되도록 보장
+<script>
     window.addEventListener('DOMContentLoaded', () => {
+        // 1. 모바일 메뉴 관련 (하나로 통합)
         const menuToggle = document.getElementById('mobile-menu');
         const navMenu = document.getElementById('nav-menu');
 
-        // 요소가 존재하는지 먼저 확인 (안전장치)
         if (menuToggle && navMenu) {
             menuToggle.addEventListener('click', (e) => {
-                // 이벤트 전파 방지 (필요 시)
-                e.preventDefault();
-                
-                // 클래스 토글
                 menuToggle.classList.toggle('active');
                 navMenu.classList.toggle('active');
-                
-                // 로그 확인 (사파리 개발자 도구 콘솔에서 확인 가능)
-                console.log("Menu clicked! Active status:", navMenu.classList.contains('active'));
+                console.log("Menu clicked!");
             });
 
-            // 메뉴 클릭 시 자동으로 닫기
-            const navLinks = document.querySelectorAll('nav ul li a');
-            navLinks.forEach(link => {
+            // 메뉴 링크 클릭 시 닫기
+            document.querySelectorAll('nav ul li a').forEach(link => {
                 link.addEventListener('click', () => {
                     menuToggle.classList.remove('active');
                     navMenu.classList.remove('active');
                 });
             });
-        } else {
-            console.error("ID를 찾을 수 없습니다. HTML의 ID 설정을 확인하세요.");
         }
-    });
 
+        // 2. 스크롤 애니메이션 (Intersection Observer)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -180,20 +170,7 @@
         document.querySelectorAll('.scroll-fade, .scroll-fade-deep').forEach(el => {
             observer.observe(el);
         });
-const menuToggle = document.getElementById('mobile-menu');
-const navMenu = document.getElementById('nav-menu');
-
-menuToggle.addEventListener('click', () => {
-    menuToggle.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
-
-document.querySelectorAll('nav ul li a').forEach(link => {
-    link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        navMenu.classList.remove('active');
     });
-});
-    </script>
+</script>
 </body>
 </html>
